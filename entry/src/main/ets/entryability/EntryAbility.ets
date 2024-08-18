@@ -1,6 +1,7 @@
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
@@ -20,6 +21,13 @@ export default class EntryAbility extends UIAbility {
         hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;
       }
+
+      let windowCls:window.Window = windowStage.getMainWindowSync() //获取主窗口
+      let isLayoutFullScreen:boolean = true
+      windowCls.setWindowLayoutFullScreen(isLayoutFullScreen)
+        .then(() => console.log('设置主窗口全屏成功'))
+        .catch((err:BusinessError) => console.log('设置主窗口全屏失败:err ==', err.message))
+
       hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
     });
   }
