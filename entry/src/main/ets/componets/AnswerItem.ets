@@ -17,6 +17,7 @@ export default struct AnswerItem {
   answer?:string
   //当前是否选中
   isSelected:boolean = false
+  isEnable:boolean = true
   //回调
   callBack:(isSelected:boolean, answer?:string) => void = (isSelected:boolean,answer?:string) => {}
   //监听问题是否发生了改变
@@ -40,9 +41,11 @@ export default struct AnswerItem {
   //选项按钮
   @Builder
   questionBtnBuilder() {
-    Button(this.answer, {type: ButtonType.Normal})
+    Text(this.answer)
       .width('80%')
       .height(44)
+      .textAlign(TextAlign.Center)
+      .enabled(!this.isSelected)
       .fontColor(this.answerType === AnswerType.default ? Color.Gray : Color.White)
       .backgroundColor(this.handlerAnswerTypeBgColor())
       .border({width: 1, color: this.answerType === AnswerType.default ? Color.Gray : Color.Transparent})
