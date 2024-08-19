@@ -18,7 +18,7 @@ export default struct AnswerItem {
   //当前是否选中
   isSelected:boolean = false
   //回调
-  callBack:(isSelected:boolean) => void = (isSelected:boolean) => {}
+  callBack:(isSelected:boolean, answer?:string) => void = (isSelected:boolean,answer?:string) => {}
   //监听问题是否发生了改变
   @Link @Watch('questionChange') question:Question
   //答案类型
@@ -48,11 +48,10 @@ export default struct AnswerItem {
       .border({width: 1, color: this.answerType === AnswerType.default ? Color.Gray : Color.Transparent})
       .borderRadius(8)
       .onClick(() => {
-        console.log('next question')
         if(this.answerState == AnswerState.running) {
           this.isSelected = !this.isSelected
         }
-        this.callBack(this.isSelected)
+        this.callBack(this.isSelected, this.answer)
       })
   }
 

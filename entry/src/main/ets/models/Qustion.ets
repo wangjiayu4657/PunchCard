@@ -135,6 +135,7 @@ export const questionData: Question[] = [
 
 //从题库中随机抽取n个题⽬
 export function getRandomQuestions(count: number) {
+  count = count < questionData.length ? count : questionData.length
   let length = questionData.length;
   let indexes: number[] = [];
   while (indexes.length < count) {
